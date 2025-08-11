@@ -2,12 +2,12 @@ package org.example;
 
 public class Book {
     private String title;
-    private int releaseDate;
+    private int releaseYear;
     private Author author;
 
-    public Book(String title, int releaseDate, Author author) {
+    public Book(String title, int releaseYear, Author author) {
         this.title = title;
-        this.releaseDate = releaseDate;
+        this.releaseYear = releaseYear;
         this.author = author;
     }
 
@@ -19,12 +19,12 @@ public class Book {
         this.title = title;
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     public Author getAuthor() {
@@ -37,8 +37,18 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Название = '" + title + "'" +
-                ", Дата выхода = " + releaseDate +
-                ", " + author;
+        String patronymicPart = "";
+        if (author.getPatronymic() != null && !author.getPatronymic().isEmpty()) {
+            patronymicPart = " " + author.getPatronymic().charAt(0) + ".";
+        }
+
+        String authorName = author.getLastName() + " " +
+                author.getFirstName().charAt(0) + "." +
+                patronymicPart;
+
+        return String.format("\"%s\" (Год: %d, Автор: %s)",
+                title,
+                releaseYear,
+                authorName);
     }
 }
